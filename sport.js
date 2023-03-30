@@ -1,6 +1,6 @@
 const scheduleTable = document.getElementById("schedule");
 const local_url = "http://localhost:8000/sport/soccerSchedule";
-const data_url = "http://eecslab-22.case.edu/~hcn6/csds285_project1/backend/index.php/sport/soccerSchedule";
+const data_url = "https://csds285-project1.herokuapp.com/index.php/sport/soccerSchedule";
 fetch(data_url)
     .then((response) => response.json())
     .then((data) => {

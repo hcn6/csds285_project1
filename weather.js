@@ -1,5 +1,5 @@
 const local_url = "http://localhost:8000/weather/currentWeather";
-const data_url = "http://eecslab-22.case.edu/~hcn6/csds285_project1/backend/index.php/weather/currentWeather"
+const data_url = "https://csds285-project1.herokuapp.com/index.php/weather/currentWeather"
 fetch(data_url)
     .then((response) => response.json())
     .then((data) => {

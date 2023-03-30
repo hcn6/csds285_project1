@@ -18,10 +18,10 @@ class ClassController
     {
         switch ($this->requestMethod) {
             case 'GET':
-                if ($this->path === "/allClass") {
+                if ($this->path === "allClass") {
                     $response = $this->getAllClass();
                 }
-                if ($this->path === "/schedule") {
+                if ($this->path === "schedule") {
                     $response = $this->generateSchedule();
                 }
                 break;

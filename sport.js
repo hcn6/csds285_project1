@@ -1,7 +1,7 @@
 const scheduleTable = document.getElementById("schedule");
 const local_url = "http://localhost:8000/sport/soccerSchedule";
 const data_url = "http://eecslab-22.case.edu/~hcn6/csds285_project1/backend/index.php/sport/soccerSchedule";
-fetch(local_url)
+fetch(data_url)
     .then((response) => response.json())
     .then((data) => {
         scheduleTable.innerHTML = "";

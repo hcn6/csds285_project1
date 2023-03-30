@@ -1,5 +1,5 @@
 const scheduleTable = document.getElementById("schedule");
-const data_url = "http://localhost:8000/schedule"
+const data_url = "http://eecslab-22.case.edu/~hcn6/csds285_project1/backend/index.php/class/schedule"
 fetch(data_url)
     .then((response) => response.json())
     .then((data) => {

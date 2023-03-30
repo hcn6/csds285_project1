@@ -72,43 +72,7 @@
         </table>
     </div>
 
-    <script>
-        // const leagueSelect = document.getElementById("league");
-        const scheduleTable = document.getElementById("schedule");
-        const data_path = "backend/data/sport.json"
-        fetch(data_path)
-            .then((response) => response.json())
-            .then((data) => {
-                scheduleTable.innerHTML = "";
-                soccer_data = data.football
-                console.log(soccer_data)
-                soccer_data.forEach((match) => {
-                    const row = document.createElement("tr");
-                    // console.log(match.date)
-                    league = match.tournament
-                    date = match.start.split(" ")[0]
-                    start = match.start.split(" ")[1]
-                    home = match.match.split("vs")[0].trim()
-                    away = match.match.split("vs")[1].trim()
-
-                    row.innerHTML = `
-                  <td>${league}</td>
-                  <td>${date}</td>
-                  <td>${start}</td>
-                  <td>${home}</td>
-                  <td>${away}</td>
-                `;
-                    scheduleTable.appendChild(row);
-                });
-            })
-            .catch((error) => {
-                console.log(error)
-                scheduleTable.innerHTML = `
-                <tr>
-                  <td colspan="4">Error loading schedule.</td>
-                </tr>
-              `;
-            });
+    <script src="sport.js">
     </script>
 </body>
 

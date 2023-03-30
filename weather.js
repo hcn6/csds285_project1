@@ -1,5 +1,5 @@
-const data_path = "backend/data/weather.json"
-fetch(data_path)
+const data_url = "http://eecslab-22.case.edu/~hcn6/csds285_project1/backend/index.php/weather/currentWeather"
+fetch(data_url)
     .then((response) => response.json())
     .then((data) => {
         // Process the JSON data and display it in the output div

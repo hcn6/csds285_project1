@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Exchange Rate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            font-size: 16px;
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 5px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            text-align: left;
+        }
+
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Exchange Rate</h1>
+        <label for="total-amount">Amount of base currency</label>
+        <input type="number" id="total-amount" placeholder=1 />
+        <label for="base-currency">Base currency</label>
+        <input type="text" id="base-currency" placeholder="Enter a currency code" />
+        <label for="target-currencies">Target currencies</label>
+        <input type="text" id="target-currencies" placeholder="Enter a list of currency codes separated by commas" />
+        <button id="get-rates">Submit</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Base Amount</th>
+                    <th>Currency</th>
+                    <th>Rate</th>
+                    <th>Converted Total</th>
+                </tr>
+            </thead>
+            <tbody id="rates"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const totalAmountInput = document.getElementById("total-amount")
+        const baseCurrencyInput = document.getElementById("base-currency");
+        const targetCurrenciesInput = document.getElementById("target-currencies");
+        const getRatesButton = document.getElementById("get-rates");
+        const ratesTable = document.getElementById("rates");
+
+        
+        getRatesButton.addEventListener("click", () => {
+            const totalAmount = totalAmountInput.value;
+            console.log(totalAmount)
+            const baseCurrency = baseCurrencyInput.value.toUpperCase();
+            const targetCurrencies = targetCurrenciesInput.value
+                .toUpperCase()
+                .split(",")
+                .map((currency) => currency.trim())
+                .filter((currency) => currency !== "");
+
+            fetch(`https://api.exchangerate-api.com/v4/latest/${baseCurrency}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    ratesTable.innerHTML = "";
+                    targetCurrencies.forEach((currency) => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                <td>${totalAmount}</td>
+                <td>${currency}</td>
+                <td>${data.rates[currency]}</td>
+                <td>${totalAmount * data.rates[currency]}</td>
+              `;
+                        ratesTable.appendChild(row);
+                    });
+                })
+                .catch((error) => {
+                    console.log(error)
+                    ratesTable.innerHTML = `
+              <tr>
+                <td colspan="2">Error getting exchange rates</td>
+              </tr>
+            `;
+                });
+        });
+    </script>
+</body>
+
+</html>

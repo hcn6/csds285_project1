@@ -109,15 +109,39 @@ class ClassController
 
     private function getCanvasApi($path)
     {
-        $options = array(
-            'http' => array(
-                'method' => 'GET',
-                'header' => 'Authorization: Bearer ' . self::$TOKEN
-            )
+        // Set the API endpoint and headers
+        $endpoint = self::$CANVAS_BASE_URL . $path;
+        $headers = array(
+            'Authorization: Bearer ' . self::$TOKEN
         );
-        $context = stream_context_create($options);
-        $content = file_get_contents(self::$CANVAS_BASE_URL . $path, false, $context);
+
+        // Initialize curl
+        $curl = curl_init();
+
+        // Set curl options
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $endpoint,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_FOLLOWLOCATION => true,
+        )
+        );
+
+        // Send the request and get the response
+        $content = curl_exec($curl);
+
+        // Check for errors
+        if ($content === false) {
+            $error = curl_error($curl);
+            // handle the error
+        }
+
+        // Close curl
+        curl_close($curl);
+
+        // Process the response
         $response = json_decode($content, true);
         return $response;
+
     }
 }

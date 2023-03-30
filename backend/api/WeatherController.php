@@ -79,4 +79,5 @@ class WeatherController
         $data = json_decode($response, true); // assuming the response is in JSON format
         return $data;
     }
+
 }

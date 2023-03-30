@@ -107,41 +107,17 @@ class ClassController
         return $dueIn7Days;
     }
 
-    // private function getCanvasApi($path)
-    // {
-    //     $options = array(
-    //         'http' => array(
-    //             'method' => 'GET',
-    //             'header' => 'Authorization: Bearer ' . self::$TOKEN
-    //         )
-    //     );
-    //     $context = stream_context_create($options);
-    //     $content = file_get_contents(self::$CANVAS_BASE_URL . $path, false, $context);
-    //     $response = json_decode($content, true);
-    //     return $response;
-    // }
     private function getCanvasApi($path)
     {
-        $memcached = new \Memcached();
-        $memcached->addServer('localhost', 11211);
-
-        $cacheKey = md5($path);
-        $response = $memcached->get($cacheKey);
-
-        if (!$response) {
-            $options = array(
-                'http' => array(
-                    'method' => 'GET',
-                    'header' => 'Authorization: Bearer ' . self::$TOKEN
-                )
-            );
-            $context = stream_context_create($options);
-            $content = file_get_contents(self::$CANVAS_BASE_URL . $path, false, $context);
-            $response = json_decode($content, true);
-            $memcached->set($cacheKey, $response, 3600); // Cache for 1 hour
-        }
-
+        $options = array(
+            'http' => array(
+                'method' => 'GET',
+                'header' => 'Authorization: Bearer ' . self::$TOKEN
+            )
+        );
+        $context = stream_context_create($options);
+        $content = file_get_contents(self::$CANVAS_BASE_URL . $path, false, $context);
+        $response = json_decode($content, true);
         return $response;
     }
-
 }

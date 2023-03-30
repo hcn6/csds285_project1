@@ -8,11 +8,14 @@ fetch(data_url)
         data.forEach((classObj) => {
             const classCode = classObj['classCode'];
             classObj['assignments'].forEach((assignment) => {
+                const tempDate = new Date(assignment["due_at"]);
+
                 assignmentList.push(
                     {
                         "classCode": classCode,
                         "homework": assignment['name'],
-                        "deadline": new Date(assignment["due_at"])
+                        "deadline": tempDate,
+
                     })
             })
         })
@@ -25,7 +28,8 @@ fetch(data_url)
             row.innerHTML = `
               <td>${assignment['classCode']}</td>
               <td>${assignment['homework']}</td>
-              <td>${assignment['deadline']}</td>
+              <td>${assignment['deadline'].toDateString()}</td>
+              <td>${`${getDaysFromCurrent(assignment['deadline'])} days`}</td>
             `;
             scheduleTable.appendChild(row);
         })
@@ -38,3 +42,11 @@ fetch(data_url)
                 </tr>
               `;
     });
+
+function getDaysFromCurrent(date) {
+    let timeDiff = date.getTime() - new Date().getTime();
+      
+    // To calculate the no. of days between two dates
+    let daysDiff = timeDiff / (1000 * 3600 * 24);
+    return Math.round(daysDiff);
+}

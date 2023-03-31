@@ -5,17 +5,23 @@
   <title>Calorie Counter</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
+      font-weight: bold;
     }
 
     #container {
+      width: 100%;
       max-width: 600px;
       margin: 0 auto;
       padding: 20px;
       background-color: #f2f2f2;
       border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     h1 {
@@ -28,24 +34,42 @@
       margin-bottom: 10px;
     }
 
-    input[type="number"] {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
+    input {
       width: 100%;
-      box-sizing: border-box;
-      font-size: 16px;
+      max-width: 500px;
+      height: 55px;
+      border: none;
+      outline: none;
+      font-size: 18px;
+      border-radius: 7px;
+      text-align: center;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+      /* margin-left: auto; */
+      /* margin-right: auto; */
+      /* margin-bottom: 20px; */
+    }
+
+    input:is(:focus, :valid) {
+      border: 2px solid #43AFFC;
+    }
+
+    .input-part input::placeholder {
+      color: #bfbfbf;
     }
 
     button {
-      background-color: #4caf50;
+      background-color: #43AFFC;
       color: #fff;
+      max-width: 400px;
+      width: 100%;
       border: none;
       padding: 10px;
       border-radius: 3px;
       width: 100%;
       font-size: 16px;
       cursor: pointer;
+      margin: 10px auto 10px;
     }
 
     p {
@@ -54,6 +78,35 @@
 
     #result {
       font-weight: bold;
+      /* display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; */
+      padding: 10px 40px 10px;
+    }
+
+    table {
+      width: 50%;
+      max-width: 300px;
+      border-collapse: collapse;
+      margin: 30px auto 30px;
+      font-size: 16px;
+    }
+
+    th {
+      background-color: #43AFFC;
+      color: #fff;
+      padding: 10px;
+      text-align: left;
+      /* font-size: 11px; */
+    }
+
+    td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 40px;
+      font-weight: bold;
+      /* font-size: 11px; */
     }
   </style>
 </head>
@@ -61,25 +114,16 @@
 <body>
   <div id="container">
     <h1>Calorie Counter</h1>
-    <form>
-      <label for="food">Food:</label>
-      <input type="text" id="food" name="food" />
+    <p>Please enter the description of what you ate in natural language. </p>
+    <p style="color: red">Example: I ate 500g of beef and 300g of dumplings.</p>
+    <!-- <label for="food">Food:</label> -->
+    <input type="text" id="food" name="food" placeholder="Enter what you ate and the amount for each" required />
 
-      <label for="calories">Calories:</label>
-      <input type="number" id="calories" name="calories" />
+    <button type="button" onclick="queryNutritionFact()">Get nutrition fact</button>
 
-      <button type="button" onclick="addFood()">Add</button>
-    </form>
-
-    <hr />
-
-    <h2>Today's Intake</h2>
-    <div id="intake"></div>
-
-    <hr />
-
-    <p>Total Calories: <span id="result">0</span></p>
   </div>
+
+  <div id="result"></div>
 
   <script src="calorie.js"></script>
 </body>

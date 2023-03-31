@@ -6,7 +6,6 @@ fetch(data_url)
     .then((data) => {
         scheduleTable.innerHTML = "";
         soccer_data = data.football
-        console.log(soccer_data)
         soccer_data.forEach((match) => {
             const row = document.createElement("tr");
             // console.log(match.date)

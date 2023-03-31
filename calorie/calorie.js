@@ -1,8 +1,8 @@
 const intakeList = [];
 
 function queryNutritionFact() {
-    const local_url = "http://localhost:8000/calories/nutritionFact";
-    // const data_url = "https://csds285-project1.herokuapp.com/index.php/calories/nutritionFact";
+    // const local_url = "http://localhost:8000/calories/nutritionFact";
+    const data_url = "https://csds285-project1.herokuapp.com/index.php/calories/nutritionFact";
     const inputText = document.getElementById("food").value;
     fetch(local_url, {
         method: 'POST',

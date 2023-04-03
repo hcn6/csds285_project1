@@ -3,8 +3,9 @@ const intakeList = [];
 function queryNutritionFact() {
     // const local_url = "http://localhost:8000/calories/nutritionFact";
     const data_url = "https://csds285-project1.herokuapp.com/index.php/calories/nutritionFact";
+    const vm_url = "http://eecslab-22.case.edu/~hcn6/csds285_project1/backend/index.php/calories/nutritionFact";
     const inputText = document.getElementById("food").value;
-    fetch(data_url, {
+    fetch(vm_url, {
         method: 'POST',
         body: JSON.stringify({ "query": inputText }),
         headers: {

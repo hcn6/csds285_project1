@@ -5,7 +5,7 @@ function queryNutritionFact() {
     const data_url = "https://csds285-project1.herokuapp.com/index.php/calories/nutritionFact";
     const vm_url = "http://eecslab-22.case.edu/~hcn6/csds285_project1/backend/index.php/calories/nutritionFact";
     const inputText = document.getElementById("food").value;
-    fetch(vm_url, {
+    fetch(data_url, {
         method: 'POST',
         body: JSON.stringify({ "query": inputText }),
         headers: {
